@@ -4,8 +4,8 @@ const CardSkeleton = () => {
   return (
     <>
       <Card>
-        <Skeleton height="150px" width="450px" />
         <CardBody>
+          <Skeleton height="150px" width="450px" />
           <SkeletonText />
         </CardBody>
       </Card>

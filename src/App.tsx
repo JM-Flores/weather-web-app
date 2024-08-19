@@ -20,7 +20,7 @@ function App() {
   return (
     <>
       <Heading>Weather Forecast</Heading>
-      <HStack width={"100%"} marginBlockEnd={4}>
+      <HStack width={"100%"} marginY={4}>
         <CitySelector
           onSelect={(city) => setWeatherQuery({ ...weatherQuery, city: city })}
         />
