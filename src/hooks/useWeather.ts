@@ -7,7 +7,7 @@ interface Condition {
         text: string;
 }
 
-interface CurrentWeather {
+export interface CurrentWeather {
     temp_c: number;
     temp_f: number;
     feelslike_c: number;
@@ -19,11 +19,11 @@ interface CurrentWeather {
     condition: Condition;
 }
 
-interface Location {
+export interface Location {
     localtime: string;
 }
 
-interface ForecastDay {
+export interface ForecastDay {
     date: string;
     day: {
         mintemp_c: number;
@@ -47,7 +47,7 @@ const useWeather = (city: string | null) => {
     const [locationData, setLocationData] = useState<Location>({} as Location);
     const [forecast, setForecast] = useState<ForecastDay[]>([]);
     const [error, setError] = useState("");
-    const [isloading, setLoading] = useState(false);
+    const [isLoading, setLoading] = useState(false);
 
     useEffect(() => {
         const controller = new AbortController();
@@ -81,7 +81,7 @@ const useWeather = (city: string | null) => {
         return () => controller.abort();
       }, [city]);
 
-    return {currentWeather, locationData, forecast, error, isloading};
+    return {currentWeather, locationData, forecast, error, isLoading};
 }
 
 export default useWeather;

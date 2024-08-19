@@ -12,18 +12,21 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import useWeather from "../hooks/useWeather";
-import CardSkeleton from "./CardSkeleton";
+import { CurrentWeather, Location } from "../hooks/useWeather";
 import { weatherQuery } from "../App";
 
 interface Props {
   weatherQuery: weatherQuery;
+  currentWeather: CurrentWeather;
+  locationData: Location;
 }
 
-const CurrentWeatherCard = ({ weatherQuery }: Props) => {
-  const { city, unitTemperature, unitDistance } = weatherQuery;
-  const { currentWeather, locationData, forecast, error, isloading } =
-    useWeather(city);
+const CurrentWeatherCard = ({
+  weatherQuery,
+  currentWeather,
+  locationData,
+}: Props) => {
+  const { unitTemperature, unitDistance } = weatherQuery;
 
   const isCelcius = unitTemperature === "celcius";
   const isKilometers = unitDistance === "k";
@@ -61,10 +64,6 @@ const CurrentWeatherCard = ({ weatherQuery }: Props) => {
       value: isKilometers ? currentWeather?.gust_kph : currentWeather?.gust_mph,
     },
   ];
-
-  if (error) return <Text color={"red"}>{error}</Text>;
-  if (!city || !currentWeather) return null;
-  if (isloading) return <CardSkeleton />;
 
   return (
     <>
