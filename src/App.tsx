@@ -14,10 +14,9 @@ export interface weatherQuery {
 
 function App() {
   const [weatherQuery, setWeatherQuery] = useState<weatherQuery>({
+    unitTemperature: "celcius",
     unitDistance: "k",
   } as weatherQuery);
-  const [city, setCity] = useState<string | null>(null);
-  const [unit, setUnit] = useState<string>("celcius");
 
   return (
     <>
@@ -33,7 +32,7 @@ function App() {
             onSelect={(unit) =>
               setWeatherQuery({ ...weatherQuery, unitTemperature: unit })
             }
-            selectedUnit={unit}
+            selectedUnit={weatherQuery.unitTemperature}
           />
         </HStack>
         <CurrentWeatherCard weatherQuery={weatherQuery} />
