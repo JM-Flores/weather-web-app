@@ -2,6 +2,11 @@ import { useEffect, useState } from "react"
 import apiClient from "../services/api-client";
 import { CanceledError } from "axios";
 
+interface Condition {
+    icon: string;
+        text: string;
+}
+
 interface CurrentWeather {
     temp_c: number;
     temp_f: number;
@@ -11,20 +16,30 @@ interface CurrentWeather {
     wind_kph: number;
     gust_mph: number;
     gust_kph: number;
-    condition: {
-        code: number;
-        icon: string;
-        text: string;
-    };
+    condition: Condition;
 }
 
 interface Location {
     localtime: string;
 }
 
+interface ForecastDay {
+    date: string;
+    day: {
+        mintemp_c: number;
+        mintemp_f: number;
+        maxtemp_c: number;
+        maxtemp_f: number;
+        condition: Condition;
+    };
+}
+
 interface FetchWeatherResponse {
     current: CurrentWeather;
     location: Location;
+    forecast: {
+        forecastday: ForecastDay[];
+    };
 }
 
 const useWeather = (city: string | null) => {
@@ -42,7 +57,9 @@ const useWeather = (city: string | null) => {
             .get<FetchWeatherResponse>("/forecast.json", {
               params: {
                 q: city,
+                days: 3,
                 aqi: "no",
+                alerts: "no"
               },
               signal: controller.signal
             })
