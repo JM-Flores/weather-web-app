@@ -8,7 +8,6 @@ import {
   Heading,
   HStack,
   Image,
-  Stack,
   StackDivider,
   Text,
   VStack,
@@ -23,15 +22,17 @@ interface Props {
 }
 
 const CurrentWeatherCard = ({ city, unitTemperature, unitDistance }: Props) => {
-  const { weather, locationData, error, isloading } = useWeather(city);
+  const { currentWeather, locationData, error, isloading } = useWeather(city);
 
   const isCelcius = unitTemperature === "celcius";
   const isKilometers = unitDistance === "k";
 
-  const temperature = Math.round(isCelcius ? weather?.temp_c : weather?.temp_f);
+  const temperature = Math.round(
+    isCelcius ? currentWeather?.temp_c : currentWeather?.temp_f
+  );
   const temperatureUnit = isCelcius ? "C" : "F";
-  const condition = weather?.condition?.text;
-  const conditionIcon = weather?.condition?.icon;
+  const condition = currentWeather?.condition?.text;
+  const conditionIcon = currentWeather?.condition?.icon;
 
   const date = locationData?.localtime;
   const time = new Date(date?.replace(" ", "T")).toLocaleTimeString("en-US", {
@@ -44,22 +45,24 @@ const CurrentWeatherCard = ({ city, unitTemperature, unitDistance }: Props) => {
     {
       label: "Feels Like",
       value:
-        Math.round(isCelcius ? weather?.feelslike_c : weather?.feelslike_f) +
+        Math.round(
+          isCelcius ? currentWeather?.feelslike_c : currentWeather?.feelslike_f
+        ) +
         "°" +
         temperatureUnit,
     },
     {
       label: "Wind",
-      value: isKilometers ? weather?.wind_kph : weather?.wind_mph,
+      value: isKilometers ? currentWeather?.wind_kph : currentWeather?.wind_mph,
     },
     {
       label: "Wind Gusts",
-      value: isKilometers ? weather?.gust_kph : weather?.gust_mph,
+      value: isKilometers ? currentWeather?.gust_kph : currentWeather?.gust_mph,
     },
   ];
 
   if (error) return <Text color={"red"}>{error}</Text>;
-  if (!city || !weather) return null;
+  if (!city || !currentWeather) return null;
   if (isloading) return <CardSkeleton />;
 
   return (
