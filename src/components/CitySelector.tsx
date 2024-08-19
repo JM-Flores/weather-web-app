@@ -13,6 +13,7 @@ const CitySelector = ({ onSelect }: Props) => {
       >
         <option value="Manila">Manila</option>
         <option value="Cainta">Cainta</option>
+        <option value="London">London</option>
       </Select>
     </>
   );

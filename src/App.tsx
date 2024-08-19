@@ -1,8 +1,8 @@
-import { Heading, Text } from "@chakra-ui/react";
+import { Box, Heading } from "@chakra-ui/react";
 import "./App.css";
 import CitySelector from "./components/CitySelector";
-import { useEffect, useState } from "react";
-import apiClient from "./services/api-client";
+import { useState } from "react";
+import CurrentWeatherCard from "./components/CurrentWeatherCard";
 
 function App() {
   const [city, setCity] = useState<string | null>(null);
@@ -11,25 +11,13 @@ function App() {
     setCity(city);
   };
 
-  useEffect(() => {
-    if (city) {
-      apiClient
-        .get("/current.json", {
-          params: {
-            q: city,
-            aqi: "no",
-          },
-        })
-        .then((res) => {
-          console.log(res.data);
-        });
-    }
-  }, [city]);
-
   return (
     <>
       <Heading>Weather Forecast</Heading>
-      <CitySelector onSelect={onCitySelect} />
+      <Box margin={5}>
+        <CitySelector onSelect={(city) => onCitySelect(city)} />
+      </Box>
+      <CurrentWeatherCard city={city} />
     </>
   );
 }
