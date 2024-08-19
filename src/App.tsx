@@ -16,7 +16,7 @@ function App() {
         <CitySelector onSelect={(city) => setCity(city)} />
         <UnitSelector onSelect={(unit) => setUnit(unit)} selectedUnit={unit} />
       </HStack>
-      <CurrentWeatherCard city={city} unit={unit} />
+      <CurrentWeatherCard city={city} unitTemperature={unit} unitDistance="k" />
     </>
   );
 }
