@@ -45,6 +45,7 @@ interface FetchWeatherResponse {
 const useWeather = (city: string | null) => {
     const [currentWeather, setCurrentWeather] = useState<CurrentWeather>({} as CurrentWeather);
     const [locationData, setLocationData] = useState<Location>({} as Location);
+    const [forecast, setForecast] = useState<ForecastDay[]>([]);
     const [error, setError] = useState("");
     const [isloading, setLoading] = useState(false);
 
@@ -66,6 +67,7 @@ const useWeather = (city: string | null) => {
             .then((res) => {
               setCurrentWeather(res.data.current);
               setLocationData(res.data.location);
+              setForecast(res.data.forecast.forecastday);
               setLoading(false);
             })
             .catch((err) => {
@@ -79,7 +81,7 @@ const useWeather = (city: string | null) => {
         return () => controller.abort();
       }, [city]);
 
-    return {currentWeather, locationData, error, isloading};
+    return {currentWeather, locationData, forecast, error, isloading};
 }
 
 export default useWeather;

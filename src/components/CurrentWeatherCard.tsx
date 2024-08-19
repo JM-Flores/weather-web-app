@@ -14,15 +14,16 @@ import {
 } from "@chakra-ui/react";
 import useWeather from "../hooks/useWeather";
 import CardSkeleton from "./CardSkeleton";
+import { weatherQuery } from "../App";
 
 interface Props {
-  city: string | null;
-  unitTemperature: string;
-  unitDistance: string;
+  weatherQuery: weatherQuery;
 }
 
-const CurrentWeatherCard = ({ city, unitTemperature, unitDistance }: Props) => {
-  const { currentWeather, locationData, error, isloading } = useWeather(city);
+const CurrentWeatherCard = ({ weatherQuery }: Props) => {
+  const { city, unitTemperature, unitDistance } = weatherQuery;
+  const { currentWeather, locationData, forecast, error, isloading } =
+    useWeather(city);
 
   const isCelcius = unitTemperature === "celcius";
   const isKilometers = unitDistance === "k";
