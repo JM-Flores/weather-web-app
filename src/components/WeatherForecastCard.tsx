@@ -23,7 +23,7 @@ const WeatherForecastCard = ({ forecast }: Props) => {
       <Divider color={"gray"} />
       <VStack divider={<StackDivider />}>
         {forecast.map((forecastDay) => (
-          <HStack>
+          <HStack key={forecastDay.date}>
             <Text>{forecastDay.date}</Text>
             <Text>{forecastDay.day.maxtemp_c}</Text>;
             <Text>{forecastDay.day.mintemp_c}</Text>;
