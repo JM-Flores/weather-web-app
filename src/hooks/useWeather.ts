@@ -39,7 +39,7 @@ const useWeather = (city: string | null) => {
         if (city) {
             setLoading(true);
             apiClient
-            .get<FetchWeatherResponse>("/current.json", {
+            .get<FetchWeatherResponse>("/forecast.json", {
               params: {
                 q: city,
                 aqi: "no",

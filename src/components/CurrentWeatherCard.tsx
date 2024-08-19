@@ -14,6 +14,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import useWeather from "../hooks/useWeather";
+import CardSkeleton from "./CardSkeleton";
 
 interface Props {
   city: string | null;
@@ -59,6 +60,7 @@ const CurrentWeatherCard = ({ city, unitTemperature, unitDistance }: Props) => {
 
   if (error) return <Text color={"red"}>{error}</Text>;
   if (!city || !weather) return null;
+  if (isloading) return <CardSkeleton />;
 
   return (
     <>
