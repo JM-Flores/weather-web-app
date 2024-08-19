@@ -3,13 +3,14 @@ import useWeather from "../hooks/useWeather";
 
 interface Props {
   city: string | null;
+  unit: string;
 }
 
-const CurrentWeatherCard = ({ city }: Props) => {
+const CurrentWeatherCard = ({ city, unit }: Props) => {
   const { weather, error, isloading } = useWeather(city);
 
-  const temperatureC = weather?.temp_c;
-  const temperatureF = weather?.temp_f;
+  const temperature = unit === "celcius" ? weather?.temp_c : weather?.temp_f;
+  const temperatureUnit = unit === "celcius" ? "C" : "F";
   const condition = weather?.condition?.text;
   const conditionIcon = weather?.condition?.icon;
 
@@ -21,7 +22,9 @@ const CurrentWeatherCard = ({ city }: Props) => {
       <Card>
         <CardHeader>
           <Heading size="md">Current Weather</Heading>
-          <Text>{temperatureC}&deg;c</Text>
+          <Text>
+            {temperature}&deg;{temperatureUnit}
+          </Text>
           <Image src={conditionIcon} alt="" />
           <Text>{condition}</Text>
         </CardHeader>

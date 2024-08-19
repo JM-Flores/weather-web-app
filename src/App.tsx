@@ -1,23 +1,22 @@
-import { Box, Heading } from "@chakra-ui/react";
+import { Heading, HStack } from "@chakra-ui/react";
 import "./App.css";
 import CitySelector from "./components/CitySelector";
 import { useState } from "react";
 import CurrentWeatherCard from "./components/CurrentWeatherCard";
+import UnitSelector from "./components/UnitSelector";
 
 function App() {
   const [city, setCity] = useState<string | null>(null);
-
-  const onCitySelect = (city: string | null) => {
-    setCity(city);
-  };
+  const [unit, setUnit] = useState<string>("celcius");
 
   return (
     <>
       <Heading>Weather Forecast</Heading>
-      <Box margin={5}>
-        <CitySelector onSelect={(city) => onCitySelect(city)} />
-      </Box>
-      <CurrentWeatherCard city={city} />
+      <HStack margin={5}>
+        <CitySelector onSelect={(city) => setCity(city)} />
+        <UnitSelector onSelect={(unit) => setUnit(unit)} selectedUnit={unit} />
+      </HStack>
+      <CurrentWeatherCard city={city} unit={unit} />
     </>
   );
 }
