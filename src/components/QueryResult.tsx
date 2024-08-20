@@ -26,7 +26,11 @@ const QueryResult = ({ weatherQuery }: Props) => {
             currentWeather={currentWeather}
             locationData={locationData}
           />
-          <WeatherForecastCard forecast={forecast} />
+          <WeatherForecastCard
+            weatherQuery={weatherQuery}
+            forecast={forecast}
+            localTime={locationData.localtime}
+          />
         </>
       )}
     </VStack>

@@ -1,4 +1,4 @@
-import { Heading, HStack } from "@chakra-ui/react";
+import { Box, Grid, Heading, HStack } from "@chakra-ui/react";
 import "./App.css";
 import CitySelector from "./components/CitySelector";
 import { useState } from "react";
@@ -18,9 +18,9 @@ function App() {
   } as weatherQuery);
 
   return (
-    <>
+    <Box height={"100vh"}>
       <Heading>Weather Forecast</Heading>
-      <HStack width={"100%"} marginY={4}>
+      <Grid templateColumns="1fr 80px" gap={2} width={"100%"} marginY={4}>
         <CitySelector
           onSelect={(city) => setWeatherQuery({ ...weatherQuery, city: city })}
         />
@@ -30,9 +30,9 @@ function App() {
           }
           selectedUnit={weatherQuery.unitTemperature}
         />
-      </HStack>
+      </Grid>
       <QueryResult weatherQuery={weatherQuery} />
-    </>
+    </Box>
   );
 }
 

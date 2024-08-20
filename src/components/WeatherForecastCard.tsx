@@ -4,32 +4,74 @@ import {
   Divider,
   Heading,
   HStack,
-  StackDivider,
+  Image,
+  Table,
+  Tbody,
+  Td,
   Text,
+  Tr,
   VStack,
 } from "@chakra-ui/react";
 import { ForecastDay } from "../hooks/useWeather";
+import { weatherQuery } from "../App";
+import {
+  getDayOfWeek,
+  getDayOrNight,
+  getMonthDay,
+} from "../modules/formatDate";
 
 interface Props {
+  weatherQuery: weatherQuery;
   forecast: ForecastDay[];
+  localTime: string;
 }
 
-const WeatherForecastCard = ({ forecast }: Props) => {
+const WeatherForecastCard = ({ weatherQuery, forecast, localTime }: Props) => {
+  const unitTemperature =
+    weatherQuery.unitTemperature === "celcius" ? "C" : "F";
+
   return (
-    <Card>
+    <Card width={"100%"} overflow={"hidden"}>
       <CardHeader paddingY={4}>
-        <Heading size="md">Weather Forecast</Heading>
+        <Heading size="md" textAlign={"left"}>
+          Weather Forecast
+        </Heading>
       </CardHeader>
       <Divider color={"gray"} />
-      <VStack divider={<StackDivider />}>
-        {forecast.map((forecastDay) => (
-          <HStack key={forecastDay.date}>
-            <Text>{forecastDay.date}</Text>
-            <Text>{forecastDay.day.maxtemp_c}</Text>;
-            <Text>{forecastDay.day.mintemp_c}</Text>;
-          </HStack>
-        ))}
-      </VStack>
+      <Table>
+        <Tbody>
+          {forecast.map((day, index) => (
+            <Tr key={day.date}>
+              <Td>
+                <VStack spacing={0}>
+                  <Text fontWeight={"bold"}>
+                    {index === 0
+                      ? getDayOrNight(day.date)
+                      : getDayOfWeek(day.date)}
+                  </Text>
+                  <Text fontSize={"small"}>{getMonthDay(day.date)}</Text>
+                </VStack>
+              </Td>
+              <Td>
+                <HStack>
+                  <Image src={day.day.condition.icon} alt="" boxSize={10} />
+                  <Text fontWeight={"bold"} fontSize={"x-large"}>
+                    {Math.round(day.day.maxtemp_c)}&deg;
+                    {unitTemperature}
+                  </Text>
+                  <Text fontSize={"medium"}>
+                    {Math.round(day.day.mintemp_c)}&deg;
+                    {unitTemperature}
+                  </Text>
+                </HStack>
+              </Td>
+              <Td>
+                <Text fontWeight={"bold"}>{day.day.condition.text}</Text>
+              </Td>
+            </Tr>
+          ))}
+        </Tbody>
+      </Table>
     </Card>
   );
 };

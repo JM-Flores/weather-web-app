@@ -67,7 +67,7 @@ const CurrentWeatherCard = ({
 
   return (
     <>
-      <Card>
+      <Card width={"100%"}>
         <CardHeader paddingY={4}>
           <HStack justify="space-between" align={"center"}>
             <Heading size="md">Current Weather</Heading>
