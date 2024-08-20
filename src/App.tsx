@@ -1,8 +1,9 @@
-import { Box, Heading } from "@chakra-ui/react";
+import { Box, Grid, Heading } from "@chakra-ui/react";
 import "./App.css";
 import { useState } from "react";
 import QueryResult from "./components/QueryResult";
 import QueryContainer from "./components/QueryContainer";
+import NavBar from "./components/NavBar";
 
 export interface weatherQuery {
   city: string | null;
@@ -17,14 +18,14 @@ function App() {
   } as weatherQuery);
 
   return (
-    <Box height={"100vh"} minWidth="400px">
-      <Heading>Weather Forecast</Heading>
-      <QueryContainer
-        weatherQuery={weatherQuery}
-        setWeatherQuery={setWeatherQuery}
-      />
-      <QueryResult weatherQuery={weatherQuery} />
-    </Box>
+    <Grid templateRows={"70px 1fr"} width={"100vw"}>
+      <NavBar weatherQuery={weatherQuery} setWeatherQuery={setWeatherQuery} />
+      <Box display="flex" justifyContent="center" marginTop={5}>
+        <Box height={"100vh"} minWidth="400px" maxWidth={"600px"}>
+          <QueryResult weatherQuery={weatherQuery} />
+        </Box>
+      </Box>
+    </Grid>
   );
 }
 
