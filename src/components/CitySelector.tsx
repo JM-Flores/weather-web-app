@@ -10,6 +10,7 @@ const CitySelector = ({ onSelect }: Props) => {
       <Select
         placeholder="Select City"
         onChange={(event) => onSelect(event.target.value)}
+        cursor="pointer"
       >
         <option value="Manila">Manila</option>
         <option value="Cainta">Cainta</option>

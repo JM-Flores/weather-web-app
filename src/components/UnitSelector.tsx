@@ -11,6 +11,7 @@ const UnitSelector = ({ onSelect, selectedUnit }: Props) => {
       <Select
         onChange={(event) => onSelect(event.target.value)}
         defaultValue={selectedUnit}
+        cursor="pointer"
       >
         <option value="celcius">&deg;C</option>
         <option value="fahrenheit">&deg;F</option>
