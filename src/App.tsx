@@ -20,7 +20,7 @@ function App() {
   return (
     <Grid templateRows={"70px 1fr"} width={"100vw"}>
       <NavBar weatherQuery={weatherQuery} setWeatherQuery={setWeatherQuery} />
-      <Box display="flex" justifyContent="center" marginTop={5}>
+      <Box display="flex" justifyContent="center" marginTop={8}>
         <Box height={"100vh"} minWidth="400px" maxWidth={"600px"}>
           <QueryResult weatherQuery={weatherQuery} />
         </Box>

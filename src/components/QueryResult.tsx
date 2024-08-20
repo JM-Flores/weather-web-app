@@ -13,12 +13,17 @@ const QueryResult = ({ weatherQuery }: Props) => {
   const { currentWeather, locationData, forecast, error, isLoading } =
     useWeather(weatherQuery.city);
 
-  if (!weatherQuery.city) return null;
+  if (!weatherQuery.city)
+    return (
+      <Text fontWeight={"bold"} align={"center"}>
+        Choose a city
+      </Text>
+    );
   if (error) return <Text color="red">{error}</Text>;
   if (isLoading) return <CardSkeleton />;
 
   return (
-    <VStack spacing={2}>
+    <VStack spacing={4}>
       {!isLoading && (
         <>
           <CurrentWeatherCard
